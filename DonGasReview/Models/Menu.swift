@@ -6,8 +6,8 @@
 //
 import SwiftUI
 
-struct Menu: Identifiable{
+struct Menu<Destination: View>: Identifiable{
     let id: UUID = UUID()
     let title: String
-    let isDestination: Bool = false
+    let destination: Destination
 }
