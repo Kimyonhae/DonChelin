@@ -19,7 +19,6 @@
 /* Begin PBXFileReference section */
 		F48BF6642DC2531B00F7DB18 /* DonGasReview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DonGasReview.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F48BF6712DC2531C00F7DB18 /* DonGasReviewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DonGasReviewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F4E5CBBF2DC5F2F000A8434A /* SwiftData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftData.framework; path = System/Library/Frameworks/SwiftData.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -71,7 +70,6 @@
 			children = (
 				F48BF6662DC2531B00F7DB18 /* DonGasReview */,
 				F48BF6742DC2531C00F7DB18 /* DonGasReviewTests */,
-				F4E5CBBE2DC5F2F000A8434A /* Frameworks */,
 				F48BF6652DC2531B00F7DB18 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -83,14 +81,6 @@
 				F48BF6712DC2531C00F7DB18 /* DonGasReviewTests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		F4E5CBBE2DC5F2F000A8434A /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				F4E5CBBF2DC5F2F000A8434A /* SwiftData.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
