@@ -9,10 +9,10 @@ import SwiftUI
 
 struct HomeView: View {
     let menu: [Menu] = [
-        Menu(title: "돈슐랭 가이드", destination: AnyView(NextView())),
-        Menu(title: "별돈", destination: AnyView(NextView())),
+        Menu(title: "돈슐랭 가이드", destination: AnyView(DonsulangView())),
+        Menu(title: "별돈", destination: AnyView(DonsulangView())),
         Menu(title: "돈투어", destination: AnyView(DonTourView())),
-        Menu(title: "내 돈슐랭", destination: AnyView(NextView()))
+        Menu(title: "내 돈슐랭", destination: AnyView(DonsulangView()))
     ]
     var body: some View {
         NavigationStack {
