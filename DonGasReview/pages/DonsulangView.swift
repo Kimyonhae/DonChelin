@@ -33,6 +33,7 @@ struct DonsulangView: View {
         }
         .background(Color.backgroundColor)
         .navigationTitle("돈슐랭")
+        .navigationBarTitleDisplayMode(.large)
     }
 }
 
