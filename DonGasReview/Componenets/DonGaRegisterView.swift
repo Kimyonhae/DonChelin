@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct DonGaRegisterView: View {
     @Binding var storeName: String
@@ -13,6 +14,8 @@ struct DonGaRegisterView: View {
     @Binding var note: String
     @State private var stars: Int = 0
     @Environment(\.dismiss) var dismiss
+    @Environment(\.modelContext) var modelContext
+    
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
@@ -41,7 +44,16 @@ struct DonGaRegisterView: View {
                     .clipShape(.rect(cornerRadius: 8))
 
                 Button(action: {
-                    dismiss()
+                    do {
+                        defer {
+                            dismiss()
+                        }
+                        let review: Review = .init(storeName: storeName, note: note, stars: stars, createdAt: Date.now, updatedAt: Date.now)
+                        modelContext.insert(review)
+                        try modelContext.save()
+                    } catch {
+                        print("리뷰 생성 오류 : \(error)")
+                    }
                 }, label: {
                     Text("등록하기")
                         .padding()
