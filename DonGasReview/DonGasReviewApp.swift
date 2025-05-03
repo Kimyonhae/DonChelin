@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct DonGasReviewApp: App {
@@ -13,5 +14,6 @@ struct DonGasReviewApp: App {
         WindowGroup {
             HomeView()
         }
+        .modelContainer(for: Review.self)
     }
 }
