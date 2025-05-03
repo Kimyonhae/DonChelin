@@ -12,14 +12,14 @@ class Review: Identifiable {
     @Attribute(.unique) var id: UUID = UUID()
     var storeName: String
     var note: String
-    var rating: Double
+    var stars: Int
     var createdAt: Date
     var updatedAt: Date
     
-    init(storeName: String, note: String, rating: Double, createdAt: Date, updatedAt: Date) {
+    init(storeName: String, note: String, stars: Int, createdAt: Date, updatedAt: Date) {
         self.storeName = storeName
         self.note = note
-        self.rating = rating
+        self.stars = stars
         self.createdAt = createdAt
         self.updatedAt = updatedAt
     }
