@@ -12,9 +12,6 @@ struct DonTourView: View {
     @StateObject var location = LocationManager()
     @Environment(\.modelContext) private var modelContext
     @State private var isPresent: Bool = false
-    @State private var storeName: String = ""
-    @State private var address: String = ""
-    @State private var note: String = ""
     var body: some View {
         VStack {
             ZStack {
@@ -43,10 +40,17 @@ struct DonTourView: View {
         .navigationTitle("돈가스 여행 지도")
         .navigationBarTitleDisplayMode(.inline)
         .sheet(isPresented: $isPresent) {
-            DonGaRegisterView(
-                storeName: $storeName, address: $address, note: $note
-            )
+            DonGaRegisterView(location: location)
             .presentationDetents([.fraction(0.4)])
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                NavigationLink(destination: {
+                    DonsulangView()
+                }, label: {
+                    Image(systemName: "pencil.circle")
+                })
+            }
         }
     }
 }
@@ -96,6 +100,9 @@ class Coordinator: NSObject ,MKMapViewDelegate {
             withAnimation(.spring) {
                 self.locationManager.isChanging = false
             }
+            // 위치를 맵의 가운데로 받아오기
+            self.locationManager.latitude = mapView.centerCoordinate.latitude
+            self.locationManager.longitude = mapView.centerCoordinate.longitude
         }
     }
 }
