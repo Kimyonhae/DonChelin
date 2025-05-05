@@ -9,20 +9,28 @@ import SwiftUI
 import SwiftData
 
 struct DonGaRegisterView: View {
-    @Binding var storeName: String
-    @Binding var address: String
-    @Binding var note: String
+    var location: LocationManager
+    @StateObject private var viewModel: DongaRegisterViewModel
     @State private var stars: Int = 0
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) var modelContext
     
+    init(location: LocationManager) {
+        self.location = location
+        _viewModel = StateObject(wrappedValue: DongaRegisterViewModel(latitude: location.latitude, longitude: location.longitude))
+    }
+    
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
-                customTextField(placeholder: "가게 이름", text: $storeName)
+                customTextField(placeholder: "가게 이름", text: $viewModel.storeName)
                 HStack {
                     Image(systemName: "location")
-                    Text("여기에는 이제 주소가 들어갈 예정입니다")
+                    if viewModel.isLoading {
+                       ProgressView()
+                    } else {
+                        Text("주소 : \(viewModel.address)")
+                    }
                 }
                 .padding(.vertical, 10)
                 HStack {
@@ -36,20 +44,19 @@ struct DonGaRegisterView: View {
                 }
                 .padding(.vertical ,10)
                 
-                TextEditor(text: $note)
+                TextEditor(text: $viewModel.note)
                     .frame(height: 150)
                     .padding()
                     .scrollContentBackground(.hidden)
                     .background(Color(hex: "F6F8FE"))
                     .clipShape(.rect(cornerRadius: 8))
-
                 Button(action: {
                     do {
                         defer {
                             dismiss()
                         }
-                        let review: Review = .init(storeName: storeName, note: note, stars: stars, createdAt: Date.now, updatedAt: Date.now)
-                        modelContext.insert(review)
+//                        let review: Review = .init(storeName: storeName, note: note, stars: stars, createdAt: Date.now, updatedAt: Date.now)
+//                        modelContext.insert(review)
                         try modelContext.save()
                     } catch {
                         print("리뷰 생성 오류 : \(error)")
@@ -77,5 +84,5 @@ struct DonGaRegisterView: View {
 }
 
 #Preview {
-    DonGaRegisterView(storeName: .constant(""), address: .constant(""), note: .constant(""))
+    DonGaRegisterView(location: LocationManager())
 }
