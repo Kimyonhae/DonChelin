@@ -10,6 +10,7 @@ import SwiftData
 
 struct DonsulangView: View {
     @State private var selection = "List"
+    @Environment(\.dismiss) private var dismiss
     @Query private var reviews: [Review]
     init() {
         UINavigationBar.appearance().largeTitleTextAttributes = [
@@ -34,6 +35,19 @@ struct DonsulangView: View {
         .background(Color.backgroundColor)
         .navigationTitle("돈슐랭")
         .navigationBarTitleDisplayMode(.large)
+        .navigationBarBackButtonHidden()
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                HStack {
+                    Image(systemName: "chevron.left")
+                    Text("뒤로가기")
+                }
+                .foregroundStyle(Color(hex: "39291A"))
+                .onTapGesture {
+                    dismiss()
+                }
+            }
+        }
     }
 }
 
