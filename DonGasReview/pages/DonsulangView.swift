@@ -12,9 +12,12 @@ struct DonsulangView: View {
     @State private var selection = "List"
     @Environment(\.dismiss) private var dismiss
     @Query private var reviews: [Review]
+    @Environment(\.modelContext) private var modelContext
+    @State private var isAlert: Bool = false
     init() {
         UINavigationBar.appearance().largeTitleTextAttributes = [
             .foregroundColor: UIColor(red: 57/255, green: 41/255, blue: 26/255, alpha: 1.0),
+            .font: UIFont(name: "BM JUA", size: 40)!
         ]
     }
     
@@ -23,10 +26,39 @@ struct DonsulangView: View {
             VStack {
                 SegmentedTabView()
                 if reviews.isEmpty {
-                    Text("현재 리뷰가 없습니다")
+                    GeometryReader { geo in
+                        VStack {
+                            Spacer()
+                            Text("현재 리뷰가 없습니다")
+                                .multilineTextAlignment(.center)
+                                .foregroundStyle(Color(hex: "39291A"))
+                                .font(.custom("BM JUA", size: 30))
+                                .padding()
+                            Spacer()
+                        }
+                        .frame(width: geo.size.width, height: geo.size.height)
+                    }
+                    .frame(height: UIScreen.main.bounds.height * 0.7)
                 }else {
-                    ForEach(reviews) { review in
-                        Text(review.storeName)
+                    ForEach(reviews, id: \.id) { review in
+                        DonGasReviewItem(review: review){
+                            self.isAlert.toggle()
+                        }
+                        .alert("돈슐랭 리뷰 삭제", isPresented: $isAlert) {
+                            Button("취소", role: .cancel) {
+                                print("취소됨")
+                            }
+                            Button("삭제", role: .destructive) {
+                                do {
+                                    modelContext.delete(review)
+                                    try modelContext.save()
+                                }catch {
+                                    print("삭제 Error : \(error)")
+                                }
+                            }
+                        } message: {
+                            Text("이 작업은 되돌릴 수 없습니다")
+                        }
                     }
                 }
             }
