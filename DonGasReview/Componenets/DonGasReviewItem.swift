@@ -43,7 +43,7 @@ struct DonGasReviewItem: View {
                 }
             }
 
-            Text(review.note)
+            Text(review.address)
                 .font(.body)
                 .foregroundColor(.gray)
                 .lineLimit(1)

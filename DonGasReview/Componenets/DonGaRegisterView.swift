@@ -57,6 +57,7 @@ struct DonGaRegisterView: View {
                         }
                         let review: Review = .init(
                             storeName: viewModel.storeName,
+                            address: viewModel.address,
                             note: viewModel.note,
                             stars: stars,
                             createdAt: Date.now,

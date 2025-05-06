@@ -45,9 +45,7 @@ struct DonsulangView: View {
                             self.isAlert.toggle()
                         }
                         .alert("돈슐랭 리뷰 삭제", isPresented: $isAlert) {
-                            Button("취소", role: .cancel) {
-                                print("취소됨")
-                            }
+                            Button("취소", role: .cancel) {}
                             Button("삭제", role: .destructive) {
                                 do {
                                     modelContext.delete(review)

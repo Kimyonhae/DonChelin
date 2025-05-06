@@ -11,13 +11,15 @@ import SwiftData
 class Review: Identifiable {
     @Attribute(.unique) var id: UUID = UUID()
     var storeName: String
+    var address: String
     var note: String
     var stars: Int
     var createdAt: Date
     var updatedAt: Date
     
-    init(storeName: String, note: String, stars: Int, createdAt: Date, updatedAt: Date) {
+    init(storeName: String,address: String ,note: String, stars: Int, createdAt: Date, updatedAt: Date) {
         self.storeName = storeName
+        self.address = address
         self.note = note
         self.stars = stars
         self.createdAt = createdAt
