@@ -55,8 +55,14 @@ struct DonGaRegisterView: View {
                         defer {
                             dismiss()
                         }
-//                        let review: Review = .init(storeName: storeName, note: note, stars: stars, createdAt: Date.now, updatedAt: Date.now)
-//                        modelContext.insert(review)
+                        let review: Review = .init(
+                            storeName: viewModel.storeName,
+                            note: viewModel.note,
+                            stars: stars,
+                            createdAt: Date.now,
+                            updatedAt: Date.now
+                        )
+                        modelContext.insert(review)
                         try modelContext.save()
                     } catch {
                         print("리뷰 생성 오류 : \(error)")
