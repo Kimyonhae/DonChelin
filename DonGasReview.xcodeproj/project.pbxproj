@@ -215,6 +215,8 @@
 /* Begin XCBuildConfiguration section */
 		F48BF6832DC2531C00F7DB18 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = F48BF6662DC2531B00F7DB18 /* DonGasReview */;
+			baseConfigurationReferenceRelativePath = Env.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
