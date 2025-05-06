@@ -21,9 +21,7 @@ class DongaRegisterViewModel: ObservableObject {
     init(latitude: Double, longitude: Double) {
         self.latitude = latitude
         self.longitude = longitude
-        print(latitude)
-        print(longitude)
-        // addressCheck()
+        addressCheck()
     }
     
     private func addressCheck() {
@@ -32,7 +30,10 @@ class DongaRegisterViewModel: ObservableObject {
         }
         self.isLoading = true
         var request = URLRequest(url: url)
-        request.setValue("KakaoAK 일단 뺌", forHTTPHeaderField: "Authorization")
+        guard let apiKey = Bundle.main.object(forInfoDictionaryKey: "KakaoAPIKey") as? String else {
+            return
+        }
+        request.setValue("KakaoAK \(apiKey)", forHTTPHeaderField: "Authorization")
         
         URLSession.shared.dataTaskPublisher(for: request)
             .tryMap { result -> Data in
@@ -54,7 +55,6 @@ class DongaRegisterViewModel: ObservableObject {
             }, receiveValue: { [weak self] value in
                 if let existValue = value.documents.first {
                     self?.address = existValue.address.address_name
-                    print("address result : \(self?.address)")
                 }else {
                     self?.isLoading = true
                 }
