@@ -12,13 +12,16 @@ struct DonTourView: View {
     @StateObject var location = LocationManager()
     @Environment(\.modelContext) private var modelContext
     @State private var isPresent: Bool = false
+    @Environment(\.dismiss) private var dismiss
     var body: some View {
         VStack {
             ZStack {
                 MapView(location: location)
                     .ignoresSafeArea(edges: .bottom)
-                Image(systemName: "mappin.and.ellipse")
-                    .font(.title)
+                Image("DonGasmarker")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 60, height: 60) // 원하는 크기로 조절
                     .offset(x: 0, y: self.location.isChanging ? -10 : 0)
                 
                 VStack {
@@ -43,7 +46,18 @@ struct DonTourView: View {
             DonGaRegisterView(location: location)
             .presentationDetents([.fraction(0.4)])
         }
+        .navigationBarBackButtonHidden()
         .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                HStack {
+                    Image(systemName: "chevron.left")
+                    Text("뒤로가기")
+                }
+                .foregroundStyle(.blue)
+                .onTapGesture {
+                    dismiss()
+                }
+            }
             ToolbarItem(placement: .topBarTrailing) {
                 NavigationLink(destination: {
                     DonsulangView()
@@ -67,7 +81,7 @@ struct MapView: UIViewRepresentable {
         let mapView = MKMapView(frame: .zero)
         mapView.delegate = context.coordinator
         let coordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
-        let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+        let span = MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003)
         let region = MKCoordinateRegion(center: coordinate, span: span)
         mapView.setRegion(region, animated: true)
         return mapView
