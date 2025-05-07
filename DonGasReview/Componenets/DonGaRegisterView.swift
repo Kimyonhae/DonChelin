@@ -35,10 +35,14 @@ struct DonGaRegisterView: View {
                 .padding(.vertical, 10)
                 HStack {
                     ForEach(0..<5, id: \.self) { index in
-                        Image(systemName: index <= stars ? "star.fill" : "star")
-                            .foregroundStyle(index <= stars ? .yellow : .black)
+                        Image(systemName: index < stars ? "star.fill" : "star")
+                            .foregroundStyle(index < stars ? .yellow : .black)
                             .onTapGesture {
-                                stars = index
+                                if stars == index + 1 { // 값이 index + 1과 같은 경우는 똑같은 별을 누른 경우이다.
+                                    stars = 0
+                                    return
+                                }
+                                stars = index + 1
                             }
                     }
                 }
